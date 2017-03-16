@@ -30,17 +30,38 @@ const App = (props) => (
   <Router>
   <div>
     <Links />
+    
     <Route exact path="/" component={Home} />
     {/*<Route strict path="/about/" render={() => <h1>About</h1>} />*/}
+    
     <Route 
       path="/about" 
       children={({match}) => match && <h1>About</h1>} />
+    
     <Route path="/contact" render={() => <h1>Contact</h1>} />
-    <Route path="/:page" render={({match}) => (
+    
+    <Route path="/:page/:subpage" render={({match}) => (
       <h1>
-        PAGE: {match.params.page || 'Home'}
+        PAGE: {match.params.page || 'Home'}<br />
+        SUBPAGE: {match.params.subpage}
       </h1>
     )} />
+    /* Use question mark to make param optional and hyphen to avoid making subdirectory. 
+    <Route path="/:page-:subpage?" render={({match}) => (
+      <h1>
+        PAGE: {match.params.page || 'Home'}<br />
+        SUBPAGE: {match.params.subpage}
+      </h1>
+    )} />
+    */
+    /* Use regular expressions to more precisely validate route parameters. e.g. \d+ for any number of digits, \d{2}-\d{2}-\d{4} for date format, \[a-z]+ for any number of alpha characters.
+    <Route path="/:a(\d+)/:b" render={({match}) => (
+      <h1>
+        PAGE: {match.params.a}<br />
+        SUBPAGE: {match.params.b}
+      </h1>
+    )} />
+    */
   </div>
   </Router>
 );
